@@ -17,15 +17,16 @@ class CreateBaidangTable extends Migration
 
             $table->increments('id');
             $table->integer('id_admin');
-            $table->integer('briefInfo');
-            $table->integer('tags');
-            $table->string('name');
+            $table->string('briefInfo');
+            $table->string('tags');
             $table->string('image');
             $table->string('title');
             $table->string('slug');
             $table->text('content');
-            $table->date('date');
+            $table->integer('view_count')->default(0);
             $table->tinyInteger('status')->nullable()->default(1);
+            $table->string('thutuhienthi');
+            $table->string('vitrihienthi');
 
             $table->timestamps();
         });

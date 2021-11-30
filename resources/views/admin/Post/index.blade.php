@@ -28,15 +28,35 @@
             </tr>
         </thead>
         <tbody>
+            @foreach($post as $item)
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="text-center"></td>
+                <td>
+                    <img src="{{ url('public/uploads') }}/{{ $item->image }}" alt="{{ $item->title }}" style="width: 100px; margin-right: 10px">
+                </td>
+                <td>{{ $item->title }}</td>
+                <td>{{ $item->tags }}</td>
+                <td>1</td>
+                <td>{{ $item->created_at }}</td>
+                <td>@if($item->status == 0)
+                    <span class="badge badge-danger">Private</span>
+                    @else
+                    <span class="badge badge-success">Public</span>
+                    @endif
+                </td>
+                <td class="text-center">
+                    <form action="{{ route('post.destroy', $item->id ) }}" method="post">
+                        @csrf 
+                        <input type="hidden" name="_method" value="DELETE">
+                        <a class="btn btn-outline-primary btn-sm" href="{{ route('post.edit',$item->id )}}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <button class="btn btn-outline-danger btn-sm" onclick="return confirm('Bạn Có Chắc Muốn xóa tệp này không??')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
     <div class="paginition">

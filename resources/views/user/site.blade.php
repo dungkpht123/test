@@ -81,8 +81,8 @@
                                             @endforeach
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="{{ route('blog_single') }}">Tin tức</a></li>
-                                    <li class="dropdown"><a href="{{ route('blog') }}">Dịch vụ</a>
+                                    <li class="dropdown"><a href="{{ route('blog') }}">Tin tức</a></li>
+                                    <li class="dropdown"><a href="{{ route('service') }}">Dịch vụ</a>
                                         <ul class="sub-menu">
                                             <li><a href="sell_step.html">Bảo dưỡng</a></li>
                                             <li><a href="sell_step.html">Đặt lịch </a></li>

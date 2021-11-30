@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Giới thiệu Ngắn gọn: </label>
-                        <textarea id="brief" name="brief" class="form-control" rows="3"></textarea>
+                        <textarea id="brief" name="briefInfo" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="">Nội Dung: </label>
@@ -36,9 +36,9 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="">Thể Loại: </label>
-                        <select name="category_id" class="form-control">
-                            <option value="">Chọn một</option>
+                        <label for="">Tags: </label>
+                        <select name="tags" class="form-control">
+                            <option value="hihi">Chọn một</option>
                         </select>
                         <div class="error" style="color: red;">
                             @if($errors->has('category_id'))
@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Thứ Tự Hiện Thị:</label>
-                        <input type="number" name="price" class="form-control">
+                        <input type="number" name="thutuhienthi" class="form-control">
                         <div class="error" style="color: red;">
                             @if($errors->has('price'))
                             {{$errors->first('price')}}
@@ -59,22 +59,22 @@
                         <label for="">Vị Trí Hiện Thị: </label>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" name="" id="" value="">
-                                Thanh Menu
+                                <input type="checkbox" class="form-check-input" name="vitrihienthi[]" value="Menu">
+                                Trên Phần Menu
                             </label>
                         </div>
                         <div class="form-check">
 
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" name="" id="" value="">
-                                Dưới Footer
+                                <input type="checkbox" class="form-check-input" name="vitrihienthi[]" value="Footer">
+                                Dưới Thanh Footer
                             </label>
                         </div>
                         <div class="form-check">
 
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" name="" id="" value="">
-                                Trong Trang Tin Tức
+                                <input type="checkbox" class="form-check-input" name="vitrihienthi[]" value="InNewsPage">
+                                Tại Trang Tin Tức
                             </label>
 
                         </div>
