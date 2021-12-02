@@ -15,18 +15,14 @@ class CreateCommentTable extends Migration
     {
         Schema::create('comment', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_user')->unsigned();
-            $table->date('date');
-            $table->text('danhgia');
-            $table->tinyInteger('status')->nullable()->default(1);
+            $table->string('comments_user_id');
+            $table->string('comments_product_id');
+            $table->string('comments_text');
+            $table->integer('comments_parent')->nullable();
+            $table->string('comments_status')->default(0);
+            $table->string('comments_rating_id')->nullable();
             $table->timestamps();
-            
-            $table->foreign('id_user')->references('id')->on('users');
         });
-        // Schema::table('comment', function($table) {
-        // //noi bảng
-        //  $table->foreign('id')->reference('id_user')->on('users');
-        // });
     }
 
     /**

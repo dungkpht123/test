@@ -22,6 +22,8 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'avatar',
     ];
 
     /**
@@ -42,4 +44,12 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function scopeSearch($query)
+    {
+        if($keyword = request()->keyword){
+            $query = Admin::orderBy('created_at','DESC')->where('name','like','%'.$keyword.'%');
+
+        }
+        return $query;
+    }
 }

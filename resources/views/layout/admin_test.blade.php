@@ -69,7 +69,7 @@ $menus = config('menu');
 				<div class="sidebar-user">
 					<div class="d-flex justify-content-center">
 						<div class="flex-shrink-0">
-							<img src="{{url('public/admin')}}/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+							<img src="{{url('public/uploads/Avatar')}}/{{Auth::user()->avatar}}" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
 						</div>
 						<div class="flex-grow-1 ps-2">
 							{{Auth::user()->name}}

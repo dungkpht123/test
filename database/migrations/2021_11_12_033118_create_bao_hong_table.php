@@ -22,8 +22,6 @@ class CreateBaoHongTable extends Migration
             $table->tinyInteger('status')->nullable()->default(1);
             $table->timestamps();
 
-            $table->foreign('id_product')->references('id')->on('product');
-            $table->foreign('id_user')->references('id')->on('users');
 
         });
     }

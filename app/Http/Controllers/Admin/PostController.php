@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Post;
 use Illuminate\Http\Request;
-use PhpParser\JsonDecoder;
 
 class PostController extends Controller
 {
@@ -16,12 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::orderBy('created_at','DESC')->paginate(5);
-        //TÌM KIẾM THEO KEYWORD
-        if ($keyword = request()->keyword) {
-            $post = Post::orderBy('created_at','DESC')->search()->paginate(5);
-        }
-        return view('admin.Post.index',compact('post'));
+
+        return view('admin.Post.index');
     }
 
     /**
@@ -31,7 +25,6 @@ class PostController extends Controller
      */
     public function create()
     {
-        
         return view('admin.Post.create');
     }
 
@@ -43,33 +36,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'briefInfo' => 'required',
-            'tags' => 'required',
-            'image' => 'required',
-            'content' => 'required',
-            'status' => 'required',
-            'thutuhienthi' => 'required',
-            'vitrihienthi' => 'required'
-        ], [
-            'title.required' => 'Tiêu đề không được để trống',
-            'briefInfo.required' => 'Giới thiệu ngắn gọn không được để trống',
-            'tags.required' => 'Hastags không được để trống',
-            'image.required' => 'Ảnh không được để trống',
-            'content.required' => 'Nội dung không được để trống',
-            'thutuhienthi.required' => 'Thứ tự hiện thị không được để trống',
-            'vitrihienthi.required' => 'Vị trí hiện thị không được để trống',
-        ]);
-        $vitri = json_encode($request->vitrihienthi);
-        $request->offsetUnset('_token');
-        $img = str_replace(url('public/uploads') . '/', '', $request->image);
-        $request->merge(['image' => $img]);
-        $request->merge(['vitrihienthi' => $vitri]);
-        
-        Post::create($request->all());
-        return redirect()->route('post.index')->with('success','Thêm mới thành công');
-
+        //
     }
 
     /**
@@ -91,10 +58,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-
-        $model = Post::find($id);
-        return view('admin.Post.update', ['model' => $model]);
-
+        //
     }
 
     /**
@@ -106,13 +70,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // BỎ TRƯỜNG DỮ LIỆU KHI CẬP NHẬT
-        $request->offsetUnset('_token');
-        $request->offsetUnset('_method');
-        $img = str_replace(url('public/uploads') . '/', '', $request->image);
-        $request->merge(['image' => $img]);
-        Post::where(['id' => $id])->update($request->all());
-        return redirect()->route('post.index')->with('success','Cập nhật thành công');
+        //
     }
 
     /**
@@ -123,7 +81,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $model = Post::destroy($id);
-        return redirect()->back()->with('success','Xóa thành công');
+        //
     }
 }

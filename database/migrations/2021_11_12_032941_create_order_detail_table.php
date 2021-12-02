@@ -19,9 +19,6 @@ class CreateOrderDetailTable extends Migration
             $table->integer('quantity');
             $table->decimal('price',12,4);
             $table->timestamps();
-
-            $table->foreign('id_order')->references('id')->on('order');
-            $table->foreign('id_product')->references('id')->on('product');
         });
     }
 

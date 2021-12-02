@@ -55,7 +55,6 @@
                 </td>
                 <td>{{$item->price}}</td>
                 <td>{{$item->sale_price}}</td>
-
                 <td style="width:250px; text-align: center;">
                     <form action="{{ route('product.destroy', $item->id ) }}" method="post">
                         @csrf

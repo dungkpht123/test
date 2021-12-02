@@ -21,32 +21,54 @@
             <div class="col-lg-10 col-md-12 offset-lg-1">
                 <div class="impl_con_form">
                     <div class="contact_map">
-                        <div id="contact_map"></div>
+                        <div id="contact_map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.7388104523366!2d108.25104871465!3d15.975010588939204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142108997dc971f%3A0x1295cb3d313469c9!2sKorea%20-%20Vietnam%20Friendship%20Information%20Technology%20College!5e0!3m2!1sfr!2s!4v1637414103564!5m2!1sfr!2s" width="369" height="515" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @if ($errors->any())
+                        <div style="background-color:#999;color:red">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                        @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                        @endif
                     </div>
                     <div class="col-lg-12 col-md-12">
                         <h1>BẠN MUỐN TƯ VẤN GÌ??</h1>
                         <h4>Hãy liên lạc với chúng tôi</h4>
                     </div>
-                    <form action="{{route('contact')}}" method="POST">
+                    <form action="{{ Route('contact.store') }}" method="POST">
                         @csrf
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control require" placeholder="Nhập tên của bạn">
+                                <input type="text" name="name" value="{{old('name')}}" class="form-control require"
+                                    placeholder="Nhập tên của bạn">
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control require" placeholder="Nhập email" data-valid="email" data-error="Email should be valid.">
+                                <input type="email" name="email" value="{{old('email')}}" class="form-control require"
+                                    placeholder="Nhập email" data-valid="email">
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <input type="phone" name="phone" class="form-control require" placeholder="Nhập SDT">
+                                <input type="text" name="phone" value="{{old('phone')}}" class="form-control require"
+                                    placeholder="Nhập SDT">
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <textarea name="content" rows="4" class="form-control" placeholder="Tin nhắn"></textarea>
+                                <textarea name="content" rows="4" value="{{old('content')}}" class="form-control"
+                                    placeholder="Tin nhắn"></textarea>
                             </div>
                         </div>
                         <div class="response"></div>

@@ -89,7 +89,7 @@ $menus = config('menu');
 				<div class="sidebar-user">
 					<div class="d-flex justify-content-center">
 						<div class="flex-shrink-0">
-							<img src="{{url('public/admin')}}/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
+							<img src="{{url('public/uploads/Avatar')}}/{{Auth::user()->avatar}}" class="avatar img-fluid rounded me-1" alt="{{Auth::user()->name}}" />
 						</div>
 						<div class="flex-grow-1 ps-2">
 							{{Auth::user()->name}}
@@ -100,8 +100,7 @@ $menus = config('menu');
 								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
-									Privacy</a>
+								<a class="dropdown-item" href="{{Route('profile.edit',Auth::user()->id)}}" data-bs-toggle="dropdown"><i class="align-middle me-1" data-feather="settings"></i> Settings</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{ route('logout') }}">Log out</a>
@@ -380,14 +379,13 @@ $menus = config('menu');
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
-								<img src="{{url('public/admin')}}/img/avatars/avatar.jpg" class="avatar img-fluid rounded" alt="Charles Hall" />
+								<img src="{{url('public/uploads/Avatar')}}/{{Auth::user()->avatar}}" class="avatar img-fluid rounded" alt="{{Auth::user()->name}}" />
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
-									Privacy</a>
+								<a class="dropdown-item" href="{{Route('profile.edit',Auth::user()->id)}}"><i class="align-middle me-1" data-feather="settings"></i> Settings</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{route('logout')}}">Log out</a>
@@ -453,7 +451,6 @@ $menus = config('menu');
 	<!-- JS -->
 	@yield('js')
 	<script src="{{url('public/admin')}}/js/app.js"></script>
-
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");

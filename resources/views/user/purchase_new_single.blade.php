@@ -1,6 +1,134 @@
 @extends('user.site')
 @section('main')
 <?php $images = json_decode($product->list_image) ?>
+<style type="text/css">
+.slick-slide {
+    display: none;
+    float: left;
+    /* height: 100%; */
+    min-height: 1px;
+}
+
+.be-comment-block {
+    margin-bottom: 50px !important;
+    border: 1px solid #edeff2;
+    border-radius: 2px;
+    padding: 50px 70px;
+    border: 1px solid #ffffff;
+}
+
+.comments-title {
+    font-size: 16px;
+    color: #262626;
+    margin-bottom: 15px;
+    font-family: 'Conv_helveticaneuecyr-bold';
+}
+
+.be-img-comment {
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.be-ava-comment {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.be-comment-content {
+    margin-left: 80px;
+}
+
+.be-comment-content span {
+    display: inline-block;
+    width: 49%;
+    margin-bottom: 15px;
+}
+
+.be-comment-name {
+    font-size: 20px;
+    font-family: 'Times New Roman';
+}
+
+.be-comment-content a {
+    color: #383b43;
+}
+
+.be-comment-content span {
+    display: inline-block;
+    width: 49%;
+    margin-bottom: 15px;
+}
+
+.be-comment-time {
+    text-align: right;
+}
+
+.be-comment-time {
+    font-size: 11px;
+    color: #b4b7c1;
+}
+
+.be-comment-text {
+    font-size: 13px;
+    line-height: 18px;
+    color: #7a8192;
+    display: block;
+    background: #f6f6f7;
+    border: 1px solid #edeff2;
+    padding: 15px 20px 20px 20px;
+}
+
+.form-group.fl_icon .icon {
+    position: absolute;
+    top: 1px;
+    left: 16px;
+    width: 48px;
+    height: 48px;
+    background: #f6f6f7;
+    color: #b5b8c2;
+    text-align: center;
+    line-height: 50px;
+    -webkit-border-top-left-radius: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -moz-border-radius-topleft: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+
+.form-group .form-input {
+    font-size: 13px;
+    line-height: 50px;
+    font-weight: 400;
+    color: #b4b7c1;
+    width: 100%;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #edeff2;
+    border-radius: 3px;
+}
+
+.form-group.fl_icon .form-input {
+    padding-left: 70px;
+}
+
+.form-group textarea.form-input {
+    height: 150px;
+}
+
+.star-rating {
+    line-height: 32px;
+    font-size: 1.25em;
+}
+
+.star-rating .fa-star {
+    color: yellow;
+}
+</style>
 <!------ Breadcrumbs Start ------>
 <div class="impl_bread_wrapper">
     <div class="container">
@@ -23,10 +151,12 @@
                 <div class="impl_buycar_wrapper">
                     <div class="impl_buycar_color" id="color_car">
                         <div class="slider slider-for1">
-                            <div><img src="{{ url('public/uploads')}}/{{ $product->image }}" alt="{{ $product->name }}"></div>
+                            <div><img src="{{ url('public/uploads')}}/{{ $product->image }}" alt="{{ $product->name }}">
+                            </div>
                             @if(is_array($images))
                             @for($i = 1 ; $i < count($images); $i++) <div>
-                                <h3><img src="{{$images[$i]}}" alt="{{ $product->name }}" class="img-fluid impl_hover_car_img" style="height: 300px;" /></h3>
+                                <h3><img src="{{$images[$i]}}" alt="{{ $product->name }}"
+                                        class="img-fluid impl_hover_car_img" style="height: 300px;" /></h3>
                         </div>
                         @endfor
                         @endif
@@ -240,13 +370,16 @@
                         </div>
                         <div class="slider slider-nav">
                             <div>
-                                <div class="impl_thumb_ovrly"><img src="http://via.placeholder.com/170x100" alt=""></div>
+                                <div class="impl_thumb_ovrly"><img src="http://via.placeholder.com/170x100" alt="">
+                                </div>
                             </div>
                             <div>
-                                <div class="impl_thumb_ovrly"><img src="http://via.placeholder.com/170x100" alt=""></div>
+                                <div class="impl_thumb_ovrly"><img src="http://via.placeholder.com/170x100" alt="">
+                                </div>
                             </div>
                             <div>
-                                <div class="impl_thumb_ovrly"><img src="http://via.placeholder.com/170x100" alt=""></div>
+                                <div class="impl_thumb_ovrly"><img src="http://via.placeholder.com/170x100" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -259,15 +392,20 @@
 <div class="impl_descrip_wrapper">
     <div class="container">
         <div class="row">
-        <div class="col-md-7">
+            <div class="col-md-7">
                 <div class="img">
                     @if(is_array($images))
-                        <img src="{{$images[1]}}" alt="{{ $product->name }}" class="img-fluid impl_hover_car_img" style=" max-height: 480px; max-width: 634px;" />
+                    <img src="{{$images[1]}}" alt="{{ $product->name }}" class="img-fluid impl_hover_car_img"
+                        style=" max-height: 480px; max-width: 634px;" />
                     @endif
                 </div>
                 <div class="button" style=" margin-top: 40px; text-align: center;">
-                    <a href="" type="button" class="btn " style="background-color: #2c72c6;border-color: #2c72c6; color: #fff; max-width:200px;width: 100%;min-width: 0;" >MUA NGAY</a>
-                    <a href="" type="button" class="btn " style="margin-left: 10px;  max-width: 200px;  width: 100%;  min-width: 0; border:1px solid #000; color:#2c72c6" >XEM PROCHUSE</a>
+                    <a href="" type="button" class="btn "
+                        style="background-color: #2c72c6;border-color: #2c72c6; color: #fff; max-width:200px;width: 100%;min-width: 0;">MUA
+                        NGAY</a>
+                    <a href="" type="button" class="btn "
+                        style="margin-left: 10px;  max-width: 200px;  width: 100%;  min-width: 0; border:1px solid #000; color:#2c72c6">XEM
+                        PROCHUSE</a>
                 </div>
             </div>
             <div class="col-md-5">
@@ -287,7 +425,7 @@
                         <div class="impl_descrip_box">
                             <h2>Động Cơ</h2>
                             <p>{!! $thongso->dongCo !!}</p>
-                            
+
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -351,115 +489,115 @@
         </div>
     </div>
 </div>
-<!------ Car description wrapper Start ------>
-<div class="impl_review_wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="impl_heading">
-                    <h1>user reviews</h1>
-                </div>
+<!------ comment ------>
+<div class="container">
+    <div class="be-comment-block">
+        <h3 class="be-comment-center" style="text-align: center">Bình Luận Sản Phẩm</h3>
+        <h1 class="comments-title">Comments(3)</h1>
+        <div class="be-comment">
+            <div class="be-img-comment">
+                <a href="blog-detail-2.html">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
+                </a>
             </div>
-            <div class="col-lg-10 offset-lg-1">
-                <div class="review_slider">
-                    <div class="impl_review_box">
-                        <h2>Reviewing After 10,000 kms And Six Months Of Driving Dawn, Curiosity</h2>
-                        <ul class="review_rating">
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        </ul>
-                        <div class="review_date">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i> 15 September 2017
-                        </div>
-                        <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleas- ure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil.</p>
-                        <h4 class="review_author">By : Jasmine Keith</h4>
-                    </div>
-                    <!--2-->
-                    <div class="impl_review_box">
-                        <h2>Best Deal , Value For Money Review After 7000 kms </h2>
-                        <ul class="review_rating">
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        </ul>
-                        <div class="review_date">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i> By : Christopher Brown
-                        </div>
-                        <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleas- ure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil.</p>
-                        <h4 class="review_author">By : Jasmine Keith</h4>
-                    </div>
-                    <!--3-->
-                    <div class="impl_review_box">
-                        <h2>Not Meeting Expectation Regarding The Features Listed By Dawn, Curiosity</h2>
-                        <ul class="review_rating">
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        </ul>
-                        <div class="review_date">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i> 15 September 2017
-                        </div>
-                        <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleas- ure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil.</p>
-                        <h4 class="review_author">By : Jake Nolan</h4>
-                    </div>
-                    <!--4-->
-                    <div class="impl_review_box">
-                        <h2>Reviewing After 10,000 kms And Six Months Of Driving Dawn, Curiosity</h2>
-                        <ul class="review_rating">
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        </ul>
-                        <div class="review_date">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i> 15 September 2017
-                        </div>
-                        <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleas- ure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil.</p>
-                        <h4 class="review_author">By : Jasmine Keith</h4>
-                    </div>
-                    <!--5-->
-                    <div class="impl_review_box">
-                        <h2>Best Deal , Value For Money Review After 7000 kms </h2>
-                        <ul class="review_rating">
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        </ul>
-                        <div class="review_date">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i> By : Christopher Brown
-                        </div>
-                        <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleas- ure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil.</p>
-                        <h4 class="review_author">By : Jasmine Keith</h4>
-                    </div>
-                    <!--6-->
-                    <div class="impl_review_box">
-                        <h2>Not Meeting Expectation Regarding The Features Listed By Dawn, Curiosity</h2>
-                        <ul class="review_rating">
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        </ul>
-                        <div class="review_date">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i> 15 September 2017
-                        </div>
-                        <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleas- ure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil.</p>
-                        <h4 class="review_author">By : Jake Nolan</h4>
-                    </div>
-                </div>
+            <div class="be-comment-content">
+                <span class="be-comment-name">
+                    <a href="blog-detail-2.html">Ravi Sah</a>
+                </span>
+                <span class="be-comment-time">
+                    <i class="fa fa-clock-o"></i>
+                    May 27, 2015 at 3:14am
+                </span>
+
+                <p class="be-comment-text">
+                    Pellentesque gravida tristique ultrices.
+                    Sed blandit varius mauris, vel volutpat urna hendrerit id.
+                    Curabitur rutrum dolor gravida turpis tristique efficitur.
+                </p>
             </div>
         </div>
+        <form action="#" method="post" id="form_evaluate">
+             <input type="hidden" name="value_star" id="value_star_id" value="">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <h3 class="be-comment-center" style="text-align: center">Gửi bình Luận</h3>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label class="">Đánh giá</label>
+                        <div class="star-rating">
+                            <span class="far fa-star" data-rating="1"></span>
+                            <span class="far fa-star" data-rating="2"></span>
+                            <span class="far fa-star" data-rating="3"></span>
+                            <span class="far fa-star" data-rating="4"></span>
+                            <span class="far fa-star" data-rating="5"></span>
+                            <input type="hidden" name="whatever1" id="value_star_id" class="rating-value">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 fl_icon">
+                        <label class="">Bình Luận</label>
+                        <div class="form-group">
+                            <textarea class="form-input" id="inputTextComment" required=""
+                                placeholder="Your text"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary pull-right" type="submit" id="btnSendComment" style="margin-left: 120px;">Đăng</button>
+    </div>
+    </form>
     </div>
 </div>
+
+
+<script>
+var $star_rating = $('.star-rating .far');
+var SetRatingStar = function() {
+    return $star_rating.each(function() {
+        if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data(
+                'rating'))) {
+            return $(this).removeClass('far fa-star').addClass('fa fa-star');
+        } else {
+            return $(this).removeClass('fa fa-star').addClass('far fa-star');
+        }
+    });
+};
+
+$star_rating.on('click', function() {
+    $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+    return SetRatingStar();
+});
+</script>
+<script>
+// Gửi comment
+$('body').on('click', '#btnSendComment', function(e) {
+    e.preventDefault();
+    let id_product = '{{$product->id_product}}';
+    let id_user = '{{Auth::check() ? Auth::user()->id : "" }}';
+    let valueComment = $('#inputTextComment').val();
+    let value_rating = $('#value_star_id').val();
+
+    $.ajax({
+        url: '{{route("comments.send")}}',
+        type: 'POST',
+        data: {
+            "_token": $('meta[name="csrf-token"]').attr("content"),
+            id_product: id_product,
+            id_user: id_user,
+            valueComment: valueComment,
+            value_rating: value_rating
+        },
+        success: function(data) {
+            if (data != null) {
+                showComment()
+            }
+        }
+    })
+
+})
+</script>
+
 @stop()

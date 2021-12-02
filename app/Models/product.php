@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
-
+use App\Models\Comment;
 class product extends Model
 {
     use HasFactory;
@@ -18,12 +18,10 @@ class product extends Model
     {
         return $this->hasOne(Category::class,'id','category_id');
     }
-
-    // public function thongso()
-    // {
-    //     return $this->hasOne(thongSo::class,'id','id_thongso');
-    // }
-    
+    public function comment()
+    {
+        return $this->hasOne(Comment::class,'id','id_product');
+    }
     public function scopeSearch($query)
     {
         if($keyword = request()->keyword){

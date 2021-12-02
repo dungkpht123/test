@@ -1,7 +1,6 @@
 <?php
 
 return  [
-
     [
         'label' => 'Trang chủ',
         'title' => '',
@@ -86,6 +85,48 @@ return  [
                 // 'icon' => 'fa-list',
             ],
         ]
+    ],
+    [
+        'label' => 'Quản lý Thư',
+        'title' => 'quanlythu',
+        'route' => 'qlthu.index',
+        'icon' => 'fa-envelope',
+        'items' => [
+            [
+                'label' => 'Danh sách liên hệ',
+                'title' => 'list_quanlythu',
+                'route' => 'qlthu.index',
+
+            ],
+            [
+                'label' => 'Liên Hệ Với Khách Hàng',
+                'title' => 'traloikhachhang',
+                'route' => 'qlthu.index',
+
+            ],
+        ]
+
+    ],
+    [
+        'label' => 'Quản lý Comment',
+        'title' => 'quanlythu',
+        'route' => 'qlcomment.index',
+        'icon' => 'fa-comment',
+        'items' => [
+            [
+                'label' => 'Danh sách bình luận',
+                'title' => 'list_quanlythu',
+                'route' => 'qlcomment.index',
+
+            ],
+            [
+                'label' => 'Liên Hệ Với Khách Hàng',
+                'title' => 'traloikhachhang',
+                'route' => 'qlcomment.index',
+
+            ],
+        ]
+
     ],
     [
         'label' => 'Quản lý Sản Phẩm',
@@ -190,7 +231,7 @@ return  [
 
     ],
     // ],
-    
+
 
 
 
@@ -249,8 +290,19 @@ return  [
             [
                 'label' => 'All Account',
                 'title' => 'account',
-                'route' => 'account.index',
                 'icon' => 'fa-shopping-cart',
+                'items' => [
+                    [
+                        'label' => 'Admin',
+                        'title' => 'Admin',
+                        'route' => 'account.index',
+                    ],
+                    [
+                        'label' => 'User',
+                        'title' => 'Users',
+                        'route' => 'users.index',
+                    ],
+                ]
             ],
             [
                 'label' => 'Add new Account',
@@ -258,6 +310,7 @@ return  [
                 'route' => 'account.create',
                 'icon' => 'fa-shopping-cart',
             ],
+
         ]
 
     ],

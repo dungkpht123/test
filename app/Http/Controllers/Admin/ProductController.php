@@ -36,16 +36,16 @@ class ProductController extends Controller
         $thongSo = thongSo::firstwhere('id_product', $id);
         $this->validate($request, [
         ], [
-            
+
         ]);
 
         $request->offsetUnset('_token');
         if($thongSo!= null){
             thongSo::where('id_product',$id)->update($request->all())->with('success','Cập nhật thành công');
-            
+
         }else{
             thongSo::create($request->all())->with('success','Thêm mới thành công');
-        } 
+        }
         return redirect()->route('product.index');
     }
 

@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::orderBy('created_at','DESC')->paginate(10); 
+        $data = Category::orderBy('created_at','DESC')->paginate(10);
         //TÌM KIẾM THEO KEYWORD
         if($keyword = request()->keyword){
             $data = Category::orderBy('created_at','DESC')->search()->paginate(10);
@@ -97,8 +97,6 @@ class CategoryController extends Controller
         // BỎ TRƯỜNG DỮ LIỆU KHI CẬP NHẬT
         $request->offsetUnset('_token');
         $request->offsetUnset('_method');
-        // Lấy số trường cần lấy xử dụng hàm only
-        // $request->only('name','status');
         Category::where(['id'=>$id])->update($request->all());
         return redirect()->route('category.index');
     }
@@ -112,7 +110,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-        $data = Category::destroy($id); //DELETE 
+        $data = Category::destroy($id); //DELETE
         return redirect()->back()->with('status','Xoá thành công');   // QUAY LẠI TRANG TRƯỚC ĐÓ
         // category::find($id)->delete();
         // return redirect()->back()->with('status','Xoá thành công');

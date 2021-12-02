@@ -4,76 +4,76 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use Mail;
+use Laravel\Socialite\Facades\Socialite;
+use Session;
+session_start();
 class ControllerLogin extends Controller
-{
-  public function login()
-  {
+    {
+    public function login()
+    {
 
-    return view('testLogin');
-  }
-  public function postlogin(Request $request)
-  {
-    $this->validate($request, [
-      'name' => 'required',
-      'email' => 'required', 'email',
-      'password' => 'required',
-    ], [
-      'name.required' => 'Vui lòng nhập tên của bạn',
-      'email.required' => 'Vui lòng nhập email của bạn',
-      'email.required' => 'Email không đúng định dạng',
-      'password.required' => 'Password không được để trống',
-    ]);
-    if (Auth::guard('customer')->attempt($request->only('name', 'email', 'password'), $request->has('remember'))) {
-      return redirect()->route('home');
-    } else {
-      return redirect()->back();
+        return view('user.testLogin');
     }
-  }
+    public function postlogin(Request $request)
+    {
+        $this->validate($request, [
 
-  public function signup_user()
-  {
-    return view('testReg');
-  }
-  public function post_signup_user()
-  {
+        'email' => 'required', 'email',
+        'password' => 'required',
+        ], [
 
-    return view('testReg');
-  }
+        'email.required' => 'Vui lòng nhập email của bạn',
+        'email.required' => 'Email không đúng định dạng',
+        'password.required' => 'Password không được để trống',
+        ]);
+        if (Auth::guard('customer')->attempt($request->only( 'email', 'password'), $request->has('remember'))) {
+        return redirect()->route('home');
+        } else {
+        return redirect()->back();
+        }
+    }
 
-  public function logout()
-  {
-    Auth::guard('customer')->logout();
-    session(['cart' => []]);
-    return redirect()->route('home');
-  }
+    public function signup_user()
+    {
+        return view('user.testReg.register');
+    }
+    public function post_signup_user()
+    {
 
-  // public function register()
-  // {
-  //   return view('testReg');
-  // }
-  // // kiểm tra đăng nhập
-  // public function authenticate_user(Request $request)
-  // {
-  //   $request->validate([
-  //     'name' => 'required|string',
-  //     'email' => 'required|string|email',
-  //     'password' => 'required|string',
-  //   ]);
+        return view('user.testReg.register');
+    }
 
-  //   $credentials = $request->only('name','email', 'password');
-
-  //   if (Auth::attempt($credentials)) {
-  //     return redirect()->intended('home');
-  //   }
-  //   return redirect('user-login')->with('error', 'Mật Khẩu hoặc Email sai vui lòng nhật lại!!!');
-  // }
-
-  // public function logout()
-  // {
-  //   Auth::logout();
-  //   return redirect('');
-  // }
+    public function logout()
+    {
+        Auth::guard('customer')->logout();
+        session(['cart' => []]);
+        return redirect()->route('home');
+    }
+    public function login_google(){
+        return Socialite::driver('google')->redirect();
+    }
+    public function callback_google(){
+        try{
+            $provider = Socialite::driver('google')->stateless()->user();
+            $saveUser = User::updateOrCreate([
+                'provider_id' => $provider->getId(),
+                'provider' => 'google',
+            ],
+            [
+                'name' => $provider->getName(),
+                'email' => $provider->getEmail(),
+                'password' => '',
+                'avatar' => $provider->getAvatar(),
+            ]);
+                // dd($saveUser);
+                Auth::loginUsingId($saveUser->id);
+                return redirect()->route('home');
+            }catch (\Throwable $th) {
+                    throw $th;
+            }
+        }
 }

@@ -36,7 +36,7 @@
                                         <li><a href="sell_step.html">Tài liệu tham khảo</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{{ route('contact') }}">Liên hệ</a></li>
+                                <li><a href="{{ route('contact.create') }}">Liên hệ</a></li>
                             </ul>
                             <ul class="impl_header_icons">
                                 <li class="impl_search"><span><i class="fa fa-search" aria-hidden="true"></i></span></li>

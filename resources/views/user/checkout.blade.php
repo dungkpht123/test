@@ -1,5 +1,5 @@
 @extends('user.site')
-
+@section('title_user','Checkout')
 @section('css')
 <!-- <link rel="stylesheet" href="{{url('public/fontend/css')}}/progress.css"> -->
 @stop()
@@ -46,7 +46,7 @@
                                         @foreach($cart->items as $item)
                                         <tr>
                                             <!-- <td>{{$key}}</td> -->
-                                            <td><a href="{{route('purchase_new_single',['id' => $item['id']])}}"><img src="{{url('public/uploads')}}/{{$item['image']}}" alt=""></a></td>
+                                            <td><a href="#"><img src="{{url('public/uploads')}}/{{$item['image']}}" alt=""></a></td>
                                             <td>{{$item['name']}}</td>
                                             <td>
                                                 {{$item['quantity']}}

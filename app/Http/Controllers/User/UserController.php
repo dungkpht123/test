@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\product;
 use App\Models\thongSo;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -18,7 +19,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
 
     public function index()
     {
@@ -107,19 +108,13 @@ class UserController extends Controller
     {
         return view('user.blog_single');
     }
-    
+
     public function compare($id)
-    {   
+    {
         $product = product::find($id);
         $thongso = thongSo::firstwhere('id_product',$id);
         return view('user.compare',compact('thongso','product'));
     }
-
-    public function contact()
-    {
-        return view('user.contact');
-    }
-
     public function postcontact(Request $request)
     {
         Mail::send('mail.contact',[
@@ -142,12 +137,12 @@ class UserController extends Controller
         return view('user.sell_step');
     }
 
-    public function purchase($id, $slug)
+    public function purchase($slug)
     {
         $categories = Category::all();
-        // $product = product::findOrFail('category_id',$slug->id)->where('status',1)->paginate(9);
-        $product = product::orderBy('created_at','DESC')->where(['status' => 1 , 'category_id' => $id])->paginate(9);
         $slug = Category::where('slug',$slug)->first();
+        $id = $slug->id;
+        $product = product::where('category_id',$id)->where('status',1)->paginate(9);
         if ($keyword = request()->keyword) {
             $product = product::orderBy('created_at','DESC')->search()->where('status',1)->paginate(9);
         }
@@ -161,7 +156,6 @@ class UserController extends Controller
         $product = product::find($id);
         return view('user.purchase_new_single',compact('slug','product','thongso'));
     }
-
     public function purchase_old()
     {
         return view('user.purchase_old');
@@ -170,10 +164,6 @@ class UserController extends Controller
     {
         return view('user.purchase_used');
     }
-    
-    public function service()
-    {
-        return view('user.service');
-    }
+
 
 }
