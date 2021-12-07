@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -10,35 +10,30 @@
     <meta name="keywords" content="">
     <meta name="author" content="hsoft">
     <meta name="MobileOptimized" content="320">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!--Srart Style -->
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/fonts.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/fa.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/ion.rangeSlider.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/ion.rangeSlider.skinFlat.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/magnific/magnific-popup.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/slick/slick.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/slick/slick-theme.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/nice_select/nice-select.css">
-<!----Revolution slider---->
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/revolution/css/settings.css">
-<link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/style.css">
-<!-- Favicon Link -->
-<link rel="shortcut icon" type="image/png" href="images/favicon.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/ion.rangeSlider.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/ion.rangeSlider.skinFlat.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/magnific/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/nice_select/nice-select.css">
+    <!----Revolution slider---->
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/js/plugin/revolution/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="{{url('public/fontend')}}/css/style.css">
+    <!-- Favicon Link -->
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    @yield('css')
+    <!-- <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'> -->
 
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-@yield('css')
-<!-- <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'> -->
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'>
+    </script>
 
-<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'>
-</script>
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'>
-</script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'>
+    </script>
 </head>
 
 <body>
@@ -58,7 +53,7 @@
     <!-- menu -->
     <div class="impl_menu_wrapper">
         <div class="impl_logo">
-            <a href="{{route('home')}}"><img style="" src="{{ url('public/uploads/logotest.png') }}" alt="Logo"
+            <a href="{{route('home')}}"><img style="" src="{{ url('public/uploads/logo.png') }}" alt="Logo"
                     class="img-fluid"></a>
         </div>
         <div class="container">
@@ -70,7 +65,7 @@
                     </button>
                     <div class="impl_menu_inner">
                         <div class="impl_logo_responsive">
-                            <a href="index.html"><img src="images/logotest.png" alt="Logo" class="img-fluid"></a>
+                            <a href="index.html"><img src="images/logo1.png" alt="Logo" class="img-fluid"></a>
                         </div>
 
                         <div class="impl_menu">
@@ -85,13 +80,13 @@
                                         <ul class="sub-menu">
                                             @foreach($cats as $cat)
                                             <li><a
-                                                    href="{{ route('purchase',['slug' => $cat->slug]) }}">{{$cat->name}}</a>
+                                                    href="{{ route('purchase',['id' => $cat->id, 'slug' => $cat->slug]) }}">{{$cat->name}}</a>
                                             </li>
                                             @endforeach
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="{{ route('blog_single') }}">Tin tức</a></li>
-                                    <li class="dropdown"><a href="{{ route('blog') }}">Dịch vụ</a>
+                                    <li class="dropdown"><a href="{{ route('blog') }}">Tin tức</a></li>
+                                    <li class="dropdown"><a href="{{ route('service') }}">Dịch vụ</a>
                                         <ul class="sub-menu">
                                             <li><a href="sell_step.html">Bảo dưỡng</a></li>
                                             <li><a href="sell_step.html">Đặt lịch </a></li>
@@ -99,7 +94,7 @@
                                             <li><a href="sell_step.html">Tài liệu tham khảo</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{ route('contact.create') }}">Liên hệ</a></li>
+                                    <li><a href="{{ route('contact') }}">Liên hệ</a></li>
                                 </ul>
                             </nav>
 
@@ -152,13 +147,15 @@
                                     <div class="popup-container">
                                         @if(Auth::guard('customer')->check())
                                         <div class="subtotal" style="color: #000;">
-                                            <a
-                                                href="{{ route('setting.edit',Auth::guard('customer')->user()->id)}}">{{ Auth::guard('customer')->user()->name }}</a>
+                                            <a href="{{route('setting.edit',Auth::guard('customer')->user()->id)}}">{{ Auth::guard('customer')->user()->name}}</a>
                                         </div>
+
+
                                         <div class="subtotal" style="color: #000;">
                                             <a href="{{route('reset.edit',Auth::guard('customer')->user()->id )}}">Đổi
                                                 Mật Khẩu</a>
                                         </div>
+
                                         <div class="subtotal" style="color: #000;">
                                             <a href="{{ route('Mycart') }}">Đơn Hàng của tôi</a>
                                         </div>
@@ -192,6 +189,95 @@
     @yield('main')
     <!-- LOGIN -->
 
+    <div class="modal" id="signin">
+        <div class="impl_signin">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="impl_sign_form">
+                <h1>Đăng nhập</h1>
+                <div class="form-group">
+                    <input type="text" placeholder="Email" class="form-control">
+                    <span class="form_icon">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control">
+                    <span class="form_icon">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="forget_password">
+                    <div class="remember_checkbox">
+                        <label>Lưu mật khẩu
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <a href="#">Quên mật khẩu ?</a>
+                </div>
+                <a href="#" class="impl_btn">Đăng nhập</a>
+                <div class="login_google">
+                    <p style="margin: 12px 0;">Hoặc đăng nhập bằng / Or login by</p>
+                    <input type="button" class="btn btn-success" value="Login Google">
+                </div>
+                <p>Bạn chưa có tài khoản ? <a href="#signup" data-toggle="modal" class="impl_modal">Đăng ký</a></p>
+            </div>
+            <div class="impl_sign_img">
+                <h2>Chào mừng bạn đến với chúng tôi</h2>
+                <p>Là nơi thực hiện hiện ước mơ của bạn</p>
+                <div class="impl_sign_bottom"
+                    style="margin-top: 32px; position: relative;bottom: -176px;right: 0px; left: 426px;">
+                    <i>Design by Le Van Tan</i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--sign-up form-->
+    <div class="modal" id="signup">
+        <div class="impl_signin">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="impl_sign_form">
+                <h1>Đăng ký</h1>
+                <div class="form-group">
+                    <input type="text" placeholder="Username" class="form-control">
+                    <span class="form_icon">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Email" class="form-control">
+                    <span class="form_icon">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control">
+                    <span class="form_icon">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Confirm Password" class="form-control">
+                    <span class="form_icon">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <a href="#" class="impl_btn">Đăng ký</a>
+                <p>Bạn đã có tài khoản ? <a href="#signin" data-toggle="modal">Đăng nhập</a></p>
+            </div>
+            <div class="impl_sign_img">
+                <h2>Chào mừng bạn đến với chúng tôi</h2>
+                <p>Là nơi thực hiện hiện ước mơ của bạn</p>
+                <div class="impl_sign_bottom" style="position: relative;bottom: -176px;right: 0px; left: 426px;">
+                    <i>Design by Le Van Tan</i>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- END LOGIN -->
     <!------ Footer Section Start ------>
@@ -200,24 +286,6 @@
     @include('user.layout.footer')
     <!--Main js file Style-->
     @yield('js')
-    <script type="text/javascript">
-    $(document).ready(function() {
-        function load_comment() {
-            $.ajax({
-                url: "{{url('/')}}",
-                method: "POST",
-                data: {
-                    query: query,
-                    _token: _token
-                },
-                success: function(data) {
-                    $('#search_ajax').fadeIn();
-                    $('#search_ajax').html(data);
-                }
-            });
-        }
-    });
-    </script>
     <script type="text/javascript" src="{{url('public/fontend')}}/js/jquery.js"></script>
     <script type="text/javascript" src="{{url('public/fontend')}}/js/popper.js"></script>
     <script type="text/javascript" src="{{url('public/fontend')}}/js/bootstrap.min.js"></script>
@@ -249,94 +317,9 @@
     <!----------Revolution slider start---------->
     <script type="text/javascript" src="{{url('public/fontend')}}/js/custom.js"></script>
     <!--Main js file End-->
-    <!-- Messenger Plugin chat Code -->
-    <div id="fb-root"></div>
 
-    <!-- Your Plugin chat code -->
-    <div id="fb-customer-chat" class="fb-customerchat">
-    </div>
+    @yield('main_javascript_page')
 
-    <script>
-    var chatbox = document.getElementById('fb-customer-chat');
-    chatbox.setAttribute("page_id", "102250355624592");
-    chatbox.setAttribute("attribution", "biz_inbox");
-
-    window.fbAsyncInit = function() {
-        FB.init({
-            xfbml: true,
-            version: 'v12.0'
-        });
-    };
-
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    </script>
-
-    <!-- end -->
-    <script>
-    window.MBID = "xtVjOkTEi";
-    </script>
-    <script defer src="https://menu.metu.vn/static/js/sdk.js?container=body"></script>
-    <script type="text/javascript">
-    $(function() {
-
-        $(document).on({
-            mouseover: function(event) {
-                $(this).find('.far').addClass('star-over');
-                $(this).prevAll().find('.far').addClass('star-over');
-            },
-            mouseleave: function(event) {
-                $(this).find('.far').removeClass('star-over');
-                $(this).prevAll().find('.far').removeClass('star-over');
-            }
-        }, '.rate');
-
-
-        $(document).on('click', '.rate', function() {
-            if (!$(this).find('.star').hasClass('rate-active')) {
-                $(this).siblings().find('.star').addClass('far').removeClass('fas rate-active');
-                $(this).find('.star').addClass('rate-active fas').removeClass('far star-over');
-                $(this).prevAll().find('.star').addClass('fas').removeClass('far star-over');
-            } else {
-                console.log('has');
-            }
-        });
-
-    });
-    </script>
-    <script type="text/javascript">
-    $(function() {
-
-        $(document).on({
-            mouseover: function(event) {
-                $(this).find('.far').addClass('star-over');
-                $(this).prevAll().find('.far').addClass('star-over');
-            },
-            mouseleave: function(event) {
-                $(this).find('.far').removeClass('star-over');
-                $(this).prevAll().find('.far').removeClass('star-over');
-            }
-        }, '.rate');
-
-
-        $(document).on('click', '.rate', function() {
-            if (!$(this).find('.star').hasClass('rate-active')) {
-                $(this).siblings().find('.star').addClass('far').removeClass('fas rate-active');
-                $(this).find('.star').addClass('rate-active fas').removeClass('far star-over');
-                $(this).prevAll().find('.star').addClass('fas').removeClass('far star-over');
-            } else {
-                console.log('has');
-            }
-        });
-
-    });
-    </script>
 </body>
 
-</html> -->
+</html>

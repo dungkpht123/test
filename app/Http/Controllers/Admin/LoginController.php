@@ -38,12 +38,12 @@ class LoginController extends Controller
     return redirect('login');
   }
 
-  public function addaccount()
-  {
-    User::create([
-      'name'=> 'Demo Customer',
-      'email'=> 'levantan.laptrinh@gmail.com',
-      'password'=> bcrypt(123456)
-    ]);
-  }
+//   public function addaccount()
+//   {
+//     User::create([
+//       'name'=> 'Demo Customer',
+//       'email'=> 'levantan.laptrinh@gmail.com',
+//       'password'=> bcrypt(123456)
+//     ]);
+//   }
 }

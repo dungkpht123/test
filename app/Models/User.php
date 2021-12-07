@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\AdminResetPasswordNotification;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\Comment;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -54,7 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class,'userID','id');
     }
-
+    public function getUser(){
+        return $this->hasMany(Comment::class,'comments_user_id','id');
+    }
     public function scopeSearch($query)
     {
         if ($keyword = request()->keyword) {

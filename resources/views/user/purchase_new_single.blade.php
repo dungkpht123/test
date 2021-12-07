@@ -43,8 +43,6 @@
 
 .be-comment-content span {
     display: inline-block;
-    width: 49%;
-    margin-bottom: 15px;
 }
 
 .be-comment-name {
@@ -58,8 +56,6 @@
 
 .be-comment-content span {
     display: inline-block;
-    width: 49%;
-    margin-bottom: 15px;
 }
 
 .be-comment-time {
@@ -127,6 +123,14 @@
 
 .star-rating .fa-star {
     color: yellow;
+}
+
+.rating-on span {
+    color: yellow;
+}
+
+.fa {
+    font-size: 25px;
 }
 </style>
 <!------ Breadcrumbs Start ------>
@@ -493,31 +497,12 @@
 <div class="container">
     <div class="be-comment-block">
         <h3 class="be-comment-center" style="text-align: center">Bình Luận Sản Phẩm</h3>
-        <h1 class="comments-title">Comments(3)</h1>
-        <div class="be-comment">
-            <div class="be-img-comment">
-                <a href="blog-detail-2.html">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
-                </a>
-            </div>
-            <div class="be-comment-content">
-                <span class="be-comment-name">
-                    <a href="blog-detail-2.html">Ravi Sah</a>
-                </span>
-                <span class="be-comment-time">
-                    <i class="fa fa-clock-o"></i>
-                    May 27, 2015 at 3:14am
-                </span>
+        <h1 class="comments-title">Comments(4)</h1>
+        <!-- HIỂN THI -->
+        <div class="be-comment" id="box_ul_show_comment">
 
-                <p class="be-comment-text">
-                    Pellentesque gravida tristique ultrices.
-                    Sed blandit varius mauris, vel volutpat urna hendrerit id.
-                    Curabitur rutrum dolor gravida turpis tristique efficitur.
-                </p>
-            </div>
-        </div>
+        </div> <!-- end -->
         <form action="#" method="post" id="form_evaluate">
-             <input type="hidden" name="value_star" id="value_star_id" value="">
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
                     <h3 class="be-comment-center" style="text-align: center">Gửi bình Luận</h3>
@@ -534,7 +519,7 @@
                             <span class="far fa-star" data-rating="3"></span>
                             <span class="far fa-star" data-rating="4"></span>
                             <span class="far fa-star" data-rating="5"></span>
-                            <input type="hidden" name="whatever1" id="value_star_id" class="rating-value">
+                            <input type="hidden" name="whavalue_startever1" id="value_star_id" class="rating-value">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 fl_icon">
@@ -546,58 +531,95 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary pull-right" type="submit" id="btnSendComment" style="margin-left: 120px;">Đăng</button>
+            <button class="btn btn-primary pull-right" type="submit" id="btnSendComment"
+                style="margin-left: 120px;">Đăng</button>
+        </form>
     </div>
-    </form>
-    </div>
+</div>
 </div>
 
 
-<script>
-var $star_rating = $('.star-rating .far');
-var SetRatingStar = function() {
-    return $star_rating.each(function() {
-        if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data(
-                'rating'))) {
-            return $(this).removeClass('far fa-star').addClass('fa fa-star');
-        } else {
-            return $(this).removeClass('fa fa-star').addClass('far fa-star');
-        }
-    });
-};
 
-$star_rating.on('click', function() {
-    $star_rating.siblings('input.rating-value').val($(this).data('rating'));
-    return SetRatingStar();
-});
-</script>
-<script>
-// Gửi comment
-$('body').on('click', '#btnSendComment', function(e) {
-    e.preventDefault();
-    let id_product = '{{$product->id_product}}';
-    let id_user = '{{Auth::check() ? Auth::user()->id : "" }}';
-    let valueComment = $('#inputTextComment').val();
-    let value_rating = $('#value_star_id').val();
 
-    $.ajax({
-        url: '{{route("comments.send")}}',
-        type: 'POST',
-        data: {
-            "_token": $('meta[name="csrf-token"]').attr("content"),
-            id_product: id_product,
-            id_user: id_user,
-            valueComment: valueComment,
-            value_rating: value_rating
-        },
-        success: function(data) {
-            if (data != null) {
-                showComment()
+@endsection
+
+@section('main_javascript_page')
+<script>
+$(document).ready(function() => {
+    var $star_rating = $('.star-rating .far');
+    var SetRatingStar = function() {
+        return $star_rating.each(function() {
+            if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+                return $(this).removeClass('far fa-star').addClass('fa fa-star');
+            } else {
+                return $(this).removeClass('fa fa-star').addClass('far fa-star');
             }
-        }
-    })
+        });
+    };
 
+    $star_rating.on('click', function() {
+        $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+        return SetRatingStar();
+    });
 })
 </script>
+<script>
+$(document).ready(function() {
+    //lấy giá trị đánh giá
+    $('#form_evaluate').on('click', '.far .fa-star', function(e) {
+        let star = $(this).data('star-rating');
+        $('#value_star_id').val(star);
+    })
 
-@stop()
+    // Gửi comment
+    $('body').on('submit'
+        main_javascript_page, '#form_evaluate',
+        function(e) {
+            e.preventDefault();
+            // suawr
+            let id_product = '{{$product->id}}';
+            let id_user = '{{Auth::guard('customer')->check() ?Auth::guard('customer')->user()->id : "" }}';
+            let valueComment = $('#inputTextComment').val();
+            let value_rating = $('#value_star_id').val();
+
+            console.log(id_user);
+
+
+            $.ajax({
+                url: '{{route("comments.send")}}',
+                type: 'POST',
+                data: {
+                    "_token": $('meta[name="csrf-token"]').attr("content"),
+                    id_product: id_product,
+                    id_user: id_user,
+                    valueComment: valueComment,
+                    value_rating: value_rating
+                },
+                success: function(data) {
+                    if (data != null) {
+                        showComment();
+                    }
+                }
+            })
+
+        })
+    // show comment
+    function showComment() {
+        let id_product = '{{$product->id}}';
+
+        $.ajax({
+            url: '{{route("comments.showall")}}',
+            type: 'get',
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr("content"),
+                id_product: id_product
+            },
+            success: (data) => {
+                $('#box_ul_show_comment').html(data);
+            }
+        })
+    }
+    showComment();
+})
+</script>
+@endsection

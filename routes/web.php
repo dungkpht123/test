@@ -14,6 +14,7 @@ use App\Http\Controllers\User\ControllerLogin;
 use App\Http\Controllers\User\PassController;
 use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\DetailProductController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\ControllerRegi;
 use App\Http\Controllers\Admin\UsersController;
@@ -27,7 +28,7 @@ use App\Http\Controllers\Admin\QuanLySanPhamController;
 use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\qlcommentController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ResetPassController;
 use App\Http\Controllers\Admin\SendmailController;
@@ -45,9 +46,9 @@ use App\Http\Controllers\Admin\SendmailController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 // ADMIN
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
@@ -89,8 +90,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // quản lý thư
     Route::resource('/qlthu', SendmailController::class);
     // quản lý comment
-    Route::resource('/qlcomment', qlcommentController::class);
-
+    // Route::resource('/qlcomment', CommentController::class);
+    Route::get('/comment/reply', [CommentController::class, 'replyComment'])->name('admin.comment.reply');
+    Route::get('/comment/change-browse', [CommentController::class, 'changeBrowse'])->name('admin.change.browse');
+    Route::get('/comment', [CommentController::class, 'indexShowComment'])->name('admin.comment.index');
+    Route::get('/comment/delete/{id}', [CommentController::class, 'deleteComment'])->name('admin.comment.delete');
 
 });
 
@@ -103,6 +107,10 @@ Route::post('/register', [ControllerRegi::class,'store']);
 // gg
 Route::get('/login-google', [ControllerLogin::class, 'login_google']);
 Route::get('/car_td/google/callback',[ControllerLogin::class, 'callback_google']);
+// facebook
+Route::get('/login-facebook',[ControllerLogin::class, 'login_facebook']);
+Route::get('/car_td/google/callback',[ControllerLogin::class, 'callback_facebook']);
+
 // USER
 Route::group(['prefix' => 'car_td'], function () {
     Route::get('/', [UserController::class, 'index'])->name('home');
@@ -112,6 +120,9 @@ Route::group(['prefix' => 'car_td'], function () {
     Route::get('/signup_user', [ControllerLogin::class,'signup_user'])->name('signup_user');
     Route::post('/signup_user', [ControllerLogin::class,'post_signup_user']);
     Route::get('/logout_user', [ControllerLogin::class,'logout'])->name('logout_user');
+    // Route::get('/login-google', [ControllerLogin::class, 'login_google']);
+    // Route::get('/car_td/google/callback',[ControllerLogin::class, 'callback_google']);
+
     // đổi mật khẩu
     Route::resource('/reset', PassController::class);
     // Profile
@@ -121,7 +132,10 @@ Route::group(['prefix' => 'car_td'], function () {
     Route::get('/blog', [UserController::class, 'blog'])->name('blog');
     Route::get('/blog_single', [UserController::class, 'blog_single'])->name('blog_single');
     Route::resource('/contact', ContactController::class);
-
+    // SO SÁNH
+    Route::get('/compare/{id?}', [UserController::class, 'compare'])->name('compare');
+    // DỊCH VỤ
+    Route::get('/service', [UserController::class, 'service'])->name('service');
     // CART
     Route::get('/cart_add/{id}',[CartController::class, 'add'])->name('cart_add');
     Route::get('/cart_remove/{id?}',[CartController::class, 'remove'])->name('cart_remove');
@@ -129,6 +143,10 @@ Route::group(['prefix' => 'car_td'], function () {
     Route::get('/cart_clear',[CartController::class, 'clear'])->name('cart_clear');
     Route::get('/Mycart',[CartController::class, 'Mycart'])->name('Mycart');
 
+    // CONTACT
+    Route::get('/contact', [UserController::class, 'contact'])->name('contact');
+    Route::post('/contact', [UserController::class, 'postcontact'])->name('contact');
+    Route::get('/error', [UserController::class, 'error'])->name('error');
     Route::group(['prefix' => 'checkout'], function () {
         Route::get('/', [CheckoutController::class, 'index'])->name('checkout');
         // Route::get('/form_checkout', [CheckoutController::class, 'form'])->name('form_checkout');
@@ -141,16 +159,16 @@ Route::group(['prefix' => 'car_td'], function () {
     // CONTACT
 
     Route::get('/error', [UserController::class, 'error'])->name('error');
-    // SAN PHAM
-    Route::get('/{slug}', [UserController::class, 'purchase'])->name('purchase');
 
+    // SAN PHAM
+    Route::get('/{id}/{slug}', [UserController::class, 'purchase'])->name('purchase');
     // SAN PHẨM CHI TIẾT
-    Route::get('/{slug}/{id?}', [UserController::class, 'purchase_new_single'])->name('purchase_new_single');
+    Route::get('/sp/{slug}/{id?}', [UserController::class, 'purchase_new_single'])->name('sp');
     Route::get('/purchase_old', [UserController::class, 'purchase_old'])->name('purchase_old');
     Route::get('/purchase_used', [UserController::class, 'purchase_used'])->name('purchase_used');
-    // Bán xe cũ
-    Route::get('/sell_step', [UserController::class, 'sell_step'])->name('sell_step');
+       // Bán xe cũ
+       Route::get('/sell_step', [UserController::class, 'sell_step'])->name('sell_step');
     // comment
-    Route::get('/comments', [App\Http\Controllers\User\DetailProductController::class, 'showAllComment'])->name('comments.showall');
-    Route::post('/send-comments', [App\Http\Controllers\User\DetailProductController::class, 'sendComment'])->name('comments.send');
+    Route::get('/comments', [DetailProductController ::class, 'showAllComment'])->name('comments.showall');
+    Route::post('/send-comments', [DetailProductController ::class, 'sendComment'])->name('comments.send');
 });

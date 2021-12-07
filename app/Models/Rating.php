@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Comment;
+use App\Models\product;
 class Rating extends Model
 {
     use HasFactory;
@@ -16,10 +17,13 @@ class Rating extends Model
     ];
 
     public function getProduct(){
-        return $this->hasOne(Product::class, 'id', 'rt_product_id')->select(array('id', 'name'));
+        return $this->hasOne(product::class, 'id', 'rt_product_id')->select(array('id', 'name'));
     }
 
     public function getUser(){
         return $this->hasOne(User::class,'id','rt_user_id');
+    }
+    public function getComment(){
+        return $this->hasMany(Comment::class,'comments_rating_id','id');
     }
 }

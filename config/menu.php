@@ -110,19 +110,19 @@ return  [
     [
         'label' => 'Quản lý Comment',
         'title' => 'quanlythu',
-        'route' => 'qlcomment.index',
+        'route' => 'admin.comment.index',
         'icon' => 'fa-comment',
         'items' => [
             [
                 'label' => 'Danh sách bình luận',
                 'title' => 'list_quanlythu',
-                'route' => 'qlcomment.index',
+                'route' => 'admin.comment.index',
 
             ],
             [
                 'label' => 'Liên Hệ Với Khách Hàng',
                 'title' => 'traloikhachhang',
-                'route' => 'qlcomment.index',
+                'route' => 'admin.comment.index',
 
             ],
         ]

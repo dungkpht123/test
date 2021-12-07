@@ -130,7 +130,7 @@ $mess = '';
                                                     <span class="impl_img_tag" title="compare"><i class="fa fa-exchange" aria-hidden="true"></i></span>
                                                 </div>
                                                 <div class="impl_fea_car_data">
-                                                    <h2><a href="{{ route('purchase_new_single',['slug' => $pro->slug])}}/{{ $pro->id }}">{{$pro->name}}</a></h2>
+                                                    <h2><a href="{{ route('sp',['slug' => $pro->slug])}}/{{ $pro->id }}">{{$pro->name}}</a></h2>
                                                     <ul>
                                                         <li><span class="impl_fea_title">Tình trạng xe</span>
                                                             <span class="impl_fea_name">{{$pro->created_at->format('d-m-Y')}}</span>

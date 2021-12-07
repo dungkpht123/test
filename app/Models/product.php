@@ -22,6 +22,9 @@ class product extends Model
     {
         return $this->hasOne(Comment::class,'id','id_product');
     }
+    public function getComment(){
+        return $this->hasMany(Comment::class,'id','comments_product_id');
+    }
     public function scopeSearch($query)
     {
         if($keyword = request()->keyword){

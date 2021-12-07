@@ -30,14 +30,14 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'facebook' => [
-        'client_id' => '4390139277774194',  //client face của bạn
-        'client_secret' => '44506cc3a3490210e5620b6fa1887924',  //client app service face của bạn
-        'redirect' => 'https://tandung.com/test/car_td/callback' //callback trả về
+        'client_id' => '652221235796223',  //client face của bạn
+        'client_secret' => 'f8440d26bc869e10192d88f37e58b313',  //client app service face của bạn
+        'redirect' => 'https://tandung.com/a/car_td/facebook/callback' //callback trả về
     ],
     'google' => [
         'client_id' => '86824091458-hk41p711o5h49dh105ldqt4dpge779o9.apps.googleusercontent.com',
         'client_secret' => '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',
-        'redirect' => 'https://tandung.com/test/car_td/google/callback'
+        'redirect' => 'http://localhost/a/car_td/google/callback'
     ],
 
 ];

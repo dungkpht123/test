@@ -11,7 +11,9 @@
                         <ul class="impl_header_icons">
                             <li class="impl_search"><span><i class="fa fa-search" aria-hidden="true"></i></span></li>
                             <li><a href="compare.html"><i class="fa fa-exchange" aria-hidden="true"></i></a></li>
-                            <li class="cart-popup"><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"><span class='badge badge-warning' id='lblCartCount'>{{ $cart->total_quantity}}</span></i></a>
+                            <li class="cart-popup"><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"><span
+                                            class='badge badge-warning'
+                                            id='lblCartCount'>{{ $cart->total_quantity}}</span></i></a>
                                 <!--shopping cart box-->
                                 <div class="cart-box">
                                     <div class="popup-container">
@@ -19,7 +21,8 @@
                                         <div class="cart-entry">
                                             <a href="#" class="image">
                                                 <!-- 70x60 -->
-                                                <img src="{{url('public/uploads')}}/{{$cart_item['image']}}" alt="" width="70px" height="60px">
+                                                <img src="{{url('public/uploads')}}/{{$cart_item['image']}}" alt=""
+                                                    width="70px" height="60px">
                                             </a>
                                             <div class="content">
                                                 <a href="#" class="title">{{ $cart_item['name'] }}</a>
@@ -35,7 +38,8 @@
                                         @endforeach
                                         <div class="summary">
                                             <div class="subtotal" style="color: #000;">Tổng giá:</div>
-                                            <div class="price-s" style="color: #000;">{{number_format($cart->total_price) }} VND</div>
+                                            <div class="price-s" style="color: #000;">
+                                                {{number_format($cart->total_price) }} VND</div>
                                         </div>
                                         <div class="cart-buttons">
                                             <a href="{{route('checkout')}}" class="btn impl_btn">Xem giỏ hàng</a>
@@ -44,7 +48,8 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="cart-popup"><a href="#signin"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                            <li class="cart-popup"><a href="#signin"><i class="fa fa-sign-in"
+                                        aria-hidden="true"></i></a>
                                 <div class="cart-box" style="width: 200px;">
                                     <div class="popup-container">
                                         @if(Auth::guard('customer')->check())
@@ -56,7 +61,7 @@
                                         </div>
                                         <div class="price-s" style="color: #000;">
                                             <a href="{{ route('logout_user') }}">
-                                            Logout
+                                                Logout
                                             </a>
                                         </div>
                                         @else
@@ -76,7 +81,8 @@
                                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                     </form>
                                     <div class="srch_close_btn">
-                                        <span class="srch_close_btn_icon"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                        <span class="srch_close_btn_icon"><i class="fa fa-times"
+                                                aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                             </div>

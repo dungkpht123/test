@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Mail;
+use App\Http\Resources\UserResource;
+
 use Laravel\Socialite\Facades\Socialite;
 use Session;
 session_start();
@@ -30,6 +32,7 @@ class ControllerLogin extends Controller
         'email.required' => 'Email không đúng định dạng',
         'password.required' => 'Password không được để trống',
         ]);
+
         if (Auth::guard('customer')->attempt($request->only( 'email', 'password'), $request->has('remember'))) {
         return redirect()->route('home');
         } else {
@@ -55,6 +58,7 @@ class ControllerLogin extends Controller
     }
     public function login_google(){
         return Socialite::driver('google')->redirect();
+
     }
     public function callback_google(){
         try{
@@ -69,11 +73,39 @@ class ControllerLogin extends Controller
                 'password' => '',
                 'avatar' => $provider->getAvatar(),
             ]);
-                // dd($saveUser);
-                Auth::loginUsingId($saveUser->id);
-                return redirect()->route('home');
+            Auth::login($saveUser, true);
+            Auth::guard('customer')->login($saveUser);
+            return redirect()->route('home');
             }catch (\Throwable $th) {
                     throw $th;
             }
-        }
+            // return redirect()->route('sp');
+    }
+    //   login facebook
+    public function login_facebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+    public function callback_facebook()
+    {
+        try{
+            $provider = Socialite::driver('facebook')->stateless()->user();
+            $saveUser = User::updateOrCreate([
+                'provider_id' => $provider->getId(),
+                'provider' => 'facebook',
+            ],
+            [
+                'name' => $provider->getName(),
+                'email' => $provider->getEmail(),
+                'password' => '',
+                'avatar' => $provider->getAvatar(),
+            ]);
+            Auth::login($saveUser, true);
+            Auth::guard('customer')->login($saveUser);
+            return redirect()->route('home');
+            }catch (\Throwable $th) {
+                    throw $th;
+            }
+    }
+
 }

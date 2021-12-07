@@ -25,9 +25,9 @@ class Comment extends Model
         return $this->hasOne(User::class,'id','comments_user_id');
     }
 
-    public function getProduct(){
-        return $this->hasOne(Product::class, 'id', 'comments_product_id')->select(array('id', 'name'));
-    }
+    // public function getProduct(){
+    //     return $this->hasOne(Product::class, 'id', 'comments_product_id')->select(array('id', 'name'));
+    // }
 
     public function getRating(){
         return $this->hasOne(Rating::class, 'id', 'comments_rating_id');
